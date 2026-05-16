@@ -20,10 +20,10 @@ export default function Home() {
           <h2>🎓 Training</h2>
           <p>Study language cues, phone codes, poles and other useful Geoguessr hints.</p>
         </Link>
-        <div className="card card-tbd">
+        <Link href="/quiz" className="card card-link">
           <h2>📝 Quiz</h2>
-          <p>Quiz mode is TBD — coming soon.</p>
-        </div>
+          <p>Test your knowledge with image, language and phone code quizzes.</p>
+        </Link>
       </section>
     </main>
   )
