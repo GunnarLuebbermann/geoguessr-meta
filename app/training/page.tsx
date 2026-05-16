@@ -1,22 +1,5 @@
 import Link from 'next/link'
-
-const trainingTopics = [
-  {
-    title: 'Languages',
-    path: '/training/languages',
-    description: 'Explore language cues, street words, and alphabet hints for Geoguessr.',
-  },
-  {
-    title: 'Telephone',
-    path: '/training/telephone',
-    description: 'Learn country and area codes for fast location recognition.',
-  },
-  {
-    title: 'Poles',
-    path: '/training/poles',
-    description: 'Recognize pole types and their likely countries.',
-  },
-]
+import { categories } from '../lib/content'
 
 export default function TrainingPage() {
   return (
@@ -32,10 +15,10 @@ export default function TrainingPage() {
       </section>
 
       <section className="training-grid">
-        {trainingTopics.map((topic) => (
-          <Link key={topic.path} href={topic.path} className="training-card card-link">
-            <h2>{topic.title}</h2>
-            <p>{topic.description}</p>
+        {categories.map((cat) => (
+          <Link key={cat.slug} href={`/training/${cat.slug}`} className="training-card card-link">
+            <h2>{cat.emoji} {cat.title}</h2>
+            <p>{cat.description}</p>
           </Link>
         ))}
       </section>
