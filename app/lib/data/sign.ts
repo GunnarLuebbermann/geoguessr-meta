@@ -75,7 +75,7 @@ export const signCategory: Category = {
             { title: 'Romania', src: '/images/external/RO_road_sign_B01.svg', caption: 'thick red' },
           ]},
           { type: 'imageGrid', columns: [
-            { title: 'Australia', src: '/images/external/Australia_road_sign_R1-2.png', caption: 'black text' },
+            { title: 'Australia', src: '/images/external/Australia_road_sign_R1-2.svg', caption: 'black text' },
             { title: 'New Zealand', src: '/images/external/New_Zealand_road_sign_R2-2.png', caption: 'red text, painted on ground' },
           ]},
           { type: 'heading', level: 3, text: 'Yellow Background' },

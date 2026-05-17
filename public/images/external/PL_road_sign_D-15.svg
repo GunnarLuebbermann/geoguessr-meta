@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
-<title>Wikimedia Error</title>
-<style>
-* { margin: 0; padding: 0; }
-body { background: #fff; font: 15px/1.6 sans-serif; color: #333; }
-.content { margin: 7% auto 0; padding: 2em 1em 1em; max-width: 640px; display: flex; flex-direction: row; flex-wrap: wrap; }
-.footer { clear: both; margin-top: 14%; border-top: 1px solid #e5e5e5; background: #f9f9f9; padding: 2em 0; font-size: 0.8em; text-align: center; }
-img { margin: 0 2em 2em 0; }
-a img { border: 0; }
-h1 { margin-top: 1em; font-size: 1.2em; }
-.content-text { flex: 1; }
-p { margin: 0.7em 0 1em 0; }
-a { color: #0645ad; text-decoration: none; }
-a:hover { text-decoration: underline; }
-code { font-family: sans-serif; }
-summary { font-weight: bold; cursor: pointer; }
-details[open] { background: #970302; color: #dfdedd; }
-.text-muted { color: #777; }
-@media (prefers-color-scheme: dark) {
-  a { color: #9e9eff; }
-  body { background: transparent; color: #ddd; }
-  .footer { border-top: 1px solid #444; background: #060606; }
-  #logo { filter: invert(1) hue-rotate(180deg); }
-  .text-muted { color: #888; }
-}
-</style>
-<meta name="color-scheme" content="light dark">
-<div class="content" role="main">
-<a href="https://www.wikimedia.org"><img id="logo" src="https://www.wikimedia.org/static/images/wmf-logo.png" srcset="https://www.wikimedia.org/static/images/wmf-logo-2x.png 2x" alt="Wikimedia" width="135" height="101">
-</a>
-<div class="content-text">
-<h1>Error</h1>
-
-<p>Please set a proper user-agent and respect our robot policy https://w.wiki/4wJS. See also https://phabricator.wikimedia.org/T400119</p>
-</div>
-</div>
-<div class="footer"><p>If you report this error to the Wikimedia System Administrators, please include the details below.</p><p class="text-muted"><code>Request served via cp3078 cp3078, Varnish XID 1003729854<br>Upstream caches: cp3078 int<br>Error: 429, Please set a proper user-agent and respect our robot policy https://w.wiki/4wJS. See also https://phabricator.wikimedia.org/T400119 at Sat, 16 May 2026 19:45:53 GMT<br><details><summary>Sensitive client information</summary>IP address: 2a02:8206:3283:a600:5657:6430:2fda:bc00</details></code></p>
-</div>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="D-15" xmlns="http://www.w3.org/2000/svg" width="602" height="752" viewBox="0 0 602 752">
+  <rect x="1" y="1" width="600" height="750" rx="30" ry="30" fill="#fff"/>
+  <rect x=".5" y=".5" width="601" height="751" rx="30.5" ry="30.5" fill="none" stroke="#000"/>
+  <rect x="7" y="7" width="588" height="738" rx="24" ry="24" fill="#039"/>
+  <rect x="81" y="81" width="440" height="440" fill="#fff"/>
+  <path d="M482.045,232.25H106.646l-3.771,40.991v68.319l88.815,6.832c0,15.092,12.236,27.328,27.328,27.328s27.328-12.236,27.328-27.328h136.81c0,15.092,12.236,27.328,27.328,27.328s27.328-12.236,27.328-27.328h55.979l5.336-6.832v-40.991l-17.08-68.319ZM164.362,290.321l-3.416,3.416h-44.407l-3.416-3.416,3.32-40.991,3.512-3.416h40.991l3.416,3.416v40.991ZM178.026,293.737l-6.832-3.416v-40.991l6.832-3.416h54.655l6.832,3.416v40.991l-6.832,3.416h-54.655ZM307.832,290.321l-6.832,3.416h-47.823l-6.832-3.416v-40.991l6.832-3.416h47.823l6.832,3.416v40.991ZM335.159,293.737h-13.664v-47.823h13.664v47.823ZM355.655,293.737h-13.664v-47.823h13.664v47.823ZM437.638,290.321l-6.832,3.416h-61.487l-6.832-3.416v-40.991l6.832-3.416h61.487l6.832,3.416v40.991ZM478.629,314.233h-27.328l-6.832-6.832v-58.071l6.832-3.416h27.116l13.705,54.826-13.493,13.493Z" fill-rule="evenodd"/>
+</svg>
