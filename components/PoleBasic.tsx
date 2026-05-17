@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import ZoomableImage from './ZoomableImage'
 
 type PoleProfile = {
   title: string
@@ -93,7 +94,7 @@ export default function PoleBasic() {
       <p className="description">{current.description}</p>
 
       <div className="pole-image">
-        <img src={current.image} alt={current.imageAlt} />
+        <ZoomableImage src={current.image} alt={current.imageAlt} />
       </div>
 
       <div className="options">

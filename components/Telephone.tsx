@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import ZoomableImage from './ZoomableImage'
 
 type TelephoneQuestion = {
   question: string
@@ -88,8 +89,8 @@ export default function Telephone() {
 
       {(current.imageLocal || current.imageExternal) && (
         <div className="reference-image">
-          <img 
-            src={current.imageLocal || current.imageExternal} 
+          <ZoomableImage
+            src={current.imageLocal || current.imageExternal}
             alt={current.country}
             onError={(e) => {
               if (current.imageExternal && e.currentTarget.src !== current.imageExternal) {

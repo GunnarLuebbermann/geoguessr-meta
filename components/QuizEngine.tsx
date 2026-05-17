@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { QuizQuestion } from '../app/lib/quiz-types'
 import { getQuizQuestions } from '../app/lib/quiz-data'
+import ZoomableImage from './ZoomableImage'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -102,8 +103,7 @@ export default function QuizEngine({ categorySlug, questionCount = 15 }: { categ
       <div className="quiz-question-card">
         {question.image && (
           <div className="quiz-image">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={question.image} alt="Quiz" loading="eager" />
+            <ZoomableImage src={question.image} alt="Quiz" loading="eager" />
           </div>
         )}
 

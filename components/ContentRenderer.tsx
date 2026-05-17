@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { ContentBlock } from '../app/lib/types'
+import ZoomableImage from './ZoomableImage'
 
 interface TocEntry {
   id: string
@@ -115,8 +116,7 @@ function BlockRenderer({ block, index }: { block: ContentBlock; index: number })
     case 'image':
       return (
         <figure key={index} className="content-figure" style={block.maxWidth ? { maxWidth: block.maxWidth } : undefined}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={block.src} alt={block.caption || ''} loading="lazy" />
+          <ZoomableImage src={block.src} alt={block.caption || ''} loading="lazy" />
           {block.caption && <figcaption>{block.caption}</figcaption>}
         </figure>
       )
@@ -127,8 +127,7 @@ function BlockRenderer({ block, index }: { block: ContentBlock; index: number })
           {block.columns.map((col, j) => (
             <div key={j} className="content-image-grid-item">
               {col.title && <h4>{col.title}</h4>}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={col.src} alt={col.caption || col.title || ''} loading="lazy" />
+              <ZoomableImage src={col.src} alt={col.caption || col.title || ''} loading="lazy" />
               {col.caption && <p className="caption">{col.caption}</p>}
             </div>
           ))}
