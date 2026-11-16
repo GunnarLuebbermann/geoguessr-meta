@@ -385,7 +385,7 @@ const companyQuestions: QuizQuestion[] = ([
 // ══════════════════════════════════════════
 // EXPORT ALL
 // ══════════════════════════════════════════
-const allQuestions: QuizQuestion[] = [
+export const allQuestions: QuizQuestion[] = [
   ...carMetaQuestions,
   ...languageQuestions,
   ...telephoneQuestions,

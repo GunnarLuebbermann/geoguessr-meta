@@ -1,26 +1,17 @@
-import Link from 'next/link'
+import type { Metadata } from 'next'
 import { quizCategories } from '../lib/quiz-data'
+import PageHeader from '../../components/PageHeader'
+import QuizList from '../../components/QuizList'
+
+export const metadata: Metadata = { title: 'Quiz' }
 
 export default function QuizPage() {
+  // Put the "all" mix first
+  const sorted = [...quizCategories].sort((a, b) => (a.slug === 'all' ? -1 : b.slug === 'all' ? 1 : 0))
   return (
     <main className="container">
-      <section className="hero">
-        <Link href="/" className="back-link">← Back to home</Link>
-        <h1>📝 Quiz</h1>
-        <p className="description">
-          Test your GeoGuessr knowledge. Choose a category and answer up to 15 random questions.
-        </p>
-      </section>
-
-      <section className="training-grid">
-        {quizCategories.map((cat) => (
-          <Link key={cat.slug} href={`/quiz/${cat.slug}`} className="training-card card-link">
-            <h2>{cat.emoji} {cat.title}</h2>
-            <p>{cat.description}</p>
-            <span className="quiz-question-count">{cat.questionCount} questions</span>
-          </Link>
-        ))}
-      </section>
+      <PageHeader icon="📝" title="Quiz" description="Up to 15 random questions per round. Your best score is saved on this device." />
+      <QuizList categories={sorted} />
     </main>
   )
 }

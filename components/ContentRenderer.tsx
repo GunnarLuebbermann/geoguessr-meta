@@ -39,18 +39,13 @@ function groupIntoSections(blocks: ContentBlock[]): { preamble: { block: Content
   return { preamble, sections }
 }
 
-function TableOfContents({ entries, activeId }: { entries: TocEntry[]; activeId?: string }) {
+function TableOfContents({ entries }: { entries: TocEntry[] }) {
   if (entries.length < 3) return null
   return (
-    <nav className="content-toc">
-      <div className="content-toc-title">Inhalt</div>
-      <ul>
-        {entries.map((e) => (
-          <li key={e.id} className={`toc-level-${e.level}${activeId === e.id ? ' toc-active' : ''}`}>
-            <a href={`#${e.id}`}>{e.text}</a>
-          </li>
-        ))}
-      </ul>
+    <nav className="jump-bar" aria-label="Contents">
+      {entries.map((e) => (
+        <a key={e.id} href={`#${e.id}`} className="chip">{e.text}</a>
+      ))}
     </nav>
   )
 }
