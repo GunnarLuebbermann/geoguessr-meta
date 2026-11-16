@@ -1,24 +1,10 @@
-import Link from 'next/link'
+import type { Metadata } from 'next'
 import { categories } from '../lib/content'
-import { ContentBlock } from '../lib/types'
+import { blocksToText } from '../lib/text'
+import PageHeader from '../../components/PageHeader'
 import TrainingSearch, { SearchEntry } from '../../components/TrainingSearch'
 
-function blocksToText(blocks: ContentBlock[] = []): string {
-  const parts: string[] = []
-  for (const b of blocks) {
-    switch (b.type) {
-      case 'heading': parts.push(b.text); break
-      case 'text': parts.push(b.html); break
-      case 'list': parts.push(...b.items); break
-      case 'note':
-      case 'warning': parts.push(b.title ?? '', b.html); break
-      case 'image': parts.push(b.caption ?? ''); break
-      case 'imageGrid': b.columns.forEach((c) => parts.push(c.title ?? '', c.caption ?? '')); break
-      case 'table': parts.push(...b.headers, ...b.rows.flat()); break
-    }
-  }
-  return parts.join(' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ')
-}
+export const metadata: Metadata = { title: 'Training' }
 
 const entries: SearchEntry[] = categories.map((c) => ({
   slug: c.slug,
@@ -36,16 +22,7 @@ const entries: SearchEntry[] = categories.map((c) => ({
 export default function TrainingPage() {
   return (
     <main className="container">
-      <section className="hero">
-        <div>
-          <Link href="/" className="back-link">← Back to home</Link>
-          <h1>Training</h1>
-          <p className="description">
-            Choose a training topic below and read practical Geoguessr information for each category.
-          </p>
-        </div>
-      </section>
-
+      <PageHeader icon="📚" title="Training" description="Topic-by-topic reference: languages, poles, signs, bollards and more." />
       <TrainingSearch entries={entries} />
     </main>
   )
