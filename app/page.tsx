@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 
 export default function Home() {
@@ -10,7 +8,7 @@ export default function Home() {
           <p className="eyebrow">Geoguessr Meta</p>
           <h1>Learn Geoguessr with focused training modules</h1>
           <p className="description">
-            Choose the training path you want to explore. Quiz features are coming soon.
+            Study the meta in the training section, then test yourself in the quiz.
           </p>
         </div>
       </section>
