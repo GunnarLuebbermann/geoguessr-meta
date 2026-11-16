@@ -18,7 +18,7 @@ download() {
 }
 
 # Squarespace images
-download "https://images.squarespace-cdn.com/content/v1/60f6054f4e76b03092956de8/19dfb5b1-0cb0-49a5-adb4-9b211585bffc/19.png" "chevron-19.png"
+download "https://images.squarespace-cdn.com/content/v1/60f6054f4e76b03092956de8/19dfb5b1-0cb0-49a5-adb4-9b211585bffc/19.png" "japan-area-codes.png"
 download "https://images.squarespace-cdn.com/content/v1/60f6054f4e76b03092956de8/1cb481a2-a163-4acb-a655-2fe3ebc15a65/in_licenceplates.png" "in_licenceplates.png"
 download "https://images.squarespace-cdn.com/content/v1/60f6054f4e76b03092956de8/3709c75a-5e31-4fb9-b99d-e89c17890185/Canadian_KM_markers_map_w_numbers2.png" "Canadian_KM_markers_map_w_numbers2.png"
 download "https://images.squarespace-cdn.com/content/v1/60f6054f4e76b03092956de8/37aab839-63c2-49bf-a105-c54a313b499e/licenceplate.png" "licenceplate_pt.png"

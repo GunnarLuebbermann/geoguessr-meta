@@ -1,4 +1,5 @@
 import { QuizQuestion, QuizCategory } from './quiz-types'
+import { countryCodes, japanAreaCodes, brazilAreaCodes } from './data/phone-codes'
 
 // ─── Helpers ───
 function shuffle<T>(arr: T[]): T[] {
@@ -15,7 +16,11 @@ function pick<T>(arr: T[], n: number): T[] {
 }
 
 function pickDistractors(correct: string, pool: string[], n = 3): string[] {
-  return pick(pool.filter((x) => x !== correct), n)
+  const own = pick([...new Set(pool)].filter((x) => x !== correct), n)
+  if (own.length >= n) return own
+  // Small pool (e.g. Oceania): top up with random world countries
+  const extra = pick(worldCountries.filter((x) => x !== correct && !own.includes(x)), n - own.length)
+  return [...own, ...extra]
 }
 
 // ─── Country pools for distractors ───
@@ -137,7 +142,19 @@ const languageQuestions: QuizQuestion[] = [
   // Cyrillic
   { id: 'lang-cyr-ua', prompt: 'Which country\'s Cyrillic uses: ґ є і ї?', answer: 'Ukraine', distractors: ['Russia', 'Bulgaria', 'Serbia'], category: 'language' },
   { id: 'lang-cyr-mk', prompt: 'Which country\'s Cyrillic uses: ѕ ѓ ќ?', answer: 'North Macedonia', distractors: ['Serbia', 'Bulgaria', 'Montenegro'], category: 'language' },
-  { id: 'lang-cyr-rs', prompt: 'Which country\'s Cyrillic uses: њ љ џ ј ђ?', answer: 'Serbia', distractors: ['North Macedonia', 'Bulgaria', 'Montenegro'], category: 'language' },
+  { id: 'lang-cyr-rs', prompt: 'Which country\'s Cyrillic uses: ђ ћ (plus њ љ џ ј)?', answer: 'Serbia', distractors: ['North Macedonia', 'Bulgaria', 'Montenegro'], category: 'language' },
+  { id: 'lang-cyr-ru', prompt: 'Which country\'s Cyrillic uses ы and э (never і or ї)?', answer: 'Russia', distractors: ['Ukraine', 'Bulgaria', 'Serbia'], category: 'language' },
+  { id: 'lang-cyr-by', prompt: 'Which country\'s Cyrillic uses ў (short u)?', answer: 'Belarus', distractors: ['Russia', 'Ukraine', 'Bulgaria'], category: 'language' },
+  { id: 'lang-cyr-bg', prompt: 'In which country is ъ used as a very frequent vowel?', answer: 'Bulgaria', distractors: ['Russia', 'Serbia', 'North Macedonia'], category: 'language' },
+  { id: 'lang-cyr-kz', prompt: 'Which country\'s Cyrillic uses ә ғ қ ұ?', answer: 'Kazakhstan', distractors: ['Kyrgyzstan', 'Mongolia', 'Russia'], category: 'language' },
+  { id: 'lang-cyr-mn', prompt: 'Cyrillic text with ө and ү, but no ң — which country?', answer: 'Mongolia', distractors: ['Kazakhstan', 'Kyrgyzstan', 'Russia'], category: 'language', clue: 'Kyrgyz uses ң as well.' },
+  { id: 'lang-si-hr', prompt: 'You see č š ž but never ć or đ. Which language is it most likely?', answer: 'Slovenian', distractors: ['Croatian', 'Serbian (Latin)', 'Bosnian'], category: 'language' },
+  { id: 'lang-hr-ije', prompt: 'Words like "rijeka" and "mlijeko" (with -ije-) point to which language?', answer: 'Croatian', distractors: ['Serbian', 'Slovenian', 'Slovak'], category: 'language', clue: 'Serbian writes "reka", "mleko".' },
+  { id: 'lang-gl-concello', prompt: '"Concello" (municipality) and the street word "Rúa" point to which region?', answer: 'Galicia', distractors: ['Portugal', 'Catalonia', 'Basque Country'], category: 'language' },
+  { id: 'lang-street-carrer', prompt: 'In which language does "carrer" mean street?', answer: 'Catalan', distractors: ['Spanish', 'Galician', 'Portuguese'], category: 'language' },
+  { id: 'lang-street-tanav', prompt: 'In which language does "tänav" mean street?', answer: 'Estonian', distractors: ['Finnish', 'Latvian', 'Lithuanian'], category: 'language' },
+  { id: 'lang-street-stryd', prompt: 'In which language does "stryd" mean street?', answer: 'Welsh', distractors: ['Irish', 'Scottish Gaelic', 'Icelandic'], category: 'language' },
+  { id: 'lang-paunawa', prompt: '"Paunawa" (notice/caution) is a sign word from which country?', answer: 'Philippines', distractors: ['Indonesia', 'Malaysia', 'Thailand'], category: 'language' },
   { id: 'lang-misc-araf', prompt: '"Araf" (slow) is a traffic word from which country?', answer: 'Wales', distractors: ['Ireland', 'Scotland', 'Iceland'], category: 'language' },
   { id: 'lang-misc-awas', prompt: '"AWAS" (caution) is used in which countries?', answer: 'Malaysia & Indonesia', distractors: ['Philippines & Vietnam', 'Thailand & Laos', 'India & Sri Lanka'], category: 'language' },
 ]
@@ -146,17 +163,30 @@ const languageQuestions: QuizQuestion[] = [
 // 3. TELEPHONE QUIZ — Code → Country
 // ══════════════════════════════════════════
 const telephoneQuestions: QuizQuestion[] = [
-  { id: 'tel-61', prompt: 'Which country has the phone code +61?', answer: 'Australia', distractors: ['New Zealand', 'Indonesia', 'Philippines'], category: 'telephone' },
-  { id: 'tel-64', prompt: 'Which country has the phone code +64?', answer: 'New Zealand', distractors: ['Australia', 'Fiji', 'Papua New Guinea'], category: 'telephone' },
-  { id: 'tel-250', prompt: 'Which country has the phone code +250?', answer: 'Rwanda', distractors: ['Kenya', 'Uganda', 'Tanzania'], category: 'telephone' },
-  { id: 'tel-254', prompt: 'Which country has the phone code +254?', answer: 'Kenya', distractors: ['Rwanda', 'Uganda', 'Tanzania'], category: 'telephone' },
-  { id: 'tel-256', prompt: 'Which country has the phone code +256?', answer: 'Uganda', distractors: ['Kenya', 'Rwanda', 'Ethiopia'], category: 'telephone' },
-  { id: 'tel-54', prompt: 'Which country has the phone code +54?', answer: 'Argentina', distractors: ['Chile', 'Uruguay', 'Brazil'], category: 'telephone' },
-  { id: 'tel-56', prompt: 'Which country has the phone code +56?', answer: 'Chile', distractors: ['Argentina', 'Peru', 'Colombia'], category: 'telephone' },
-  { id: 'tel-51', prompt: 'Which country has the phone code +51?', answer: 'Peru', distractors: ['Chile', 'Bolivia', 'Ecuador'], category: 'telephone' },
-  { id: 'tel-591', prompt: 'Which country has the phone code +591?', answer: 'Bolivia', distractors: ['Peru', 'Ecuador', 'Paraguay'], category: 'telephone' },
-  { id: 'tel-593', prompt: 'Which country has the phone code +593?', answer: 'Ecuador', distractors: ['Colombia', 'Peru', 'Bolivia'], category: 'telephone' },
-  { id: 'tel-598', prompt: 'Which country has the phone code +598?', answer: 'Uruguay', distractors: ['Argentina', 'Paraguay', 'Chile'], category: 'telephone' },
+  ...countryCodes.map((c) => ({
+    id: `tel-${c.code.slice(1)}`,
+    prompt: `Which country has the phone code ${c.code}?`,
+    answer: c.country,
+    // Distractors from the same region make it a real test
+    distractors: pickDistractors(c.country, countryCodes.filter((o) => o.region === c.region).map((o) => o.country)),
+    category: 'telephone',
+  })),
+  ...japanAreaCodes.map((a) => ({
+    id: `tel-jp-${a.prefix}`,
+    prompt: `A Japanese phone number starts with ${a.prefix}… Which region are you in?`,
+    answer: a.region,
+    distractors: pickDistractors(a.region, japanAreaCodes.map((o) => o.region)),
+    category: 'telephone',
+    clue: a.examples,
+  })),
+  ...brazilAreaCodes.map((a) => ({
+    id: `tel-br-${a.prefix}`,
+    prompt: `A Brazilian phone number has DDD ${a.prefix}. Which region are you in?`,
+    answer: a.region,
+    distractors: pickDistractors(a.region, brazilAreaCodes.map((o) => o.region)),
+    category: 'telephone',
+    clue: a.examples,
+  })),
   // Brazil area codes
   { id: 'tel-br-11', prompt: 'Which Brazilian city has area code 11?', answer: 'São Paulo', distractors: ['Rio de Janeiro', 'Brasília', 'Fortaleza'], category: 'telephone', clue: 'Brazil area code' },
   { id: 'tel-br-21', prompt: 'Which Brazilian city has area code 21?', answer: 'Rio de Janeiro', distractors: ['São Paulo', 'Brasília', 'Belo Horizonte'], category: 'telephone', clue: 'Brazil area code' },
@@ -207,14 +237,150 @@ const signQuestions: QuizQuestion[] = [
 ]
 
 // ══════════════════════════════════════════
-// 6. BOLLARD / CHEVRON / GUARDRAIL
+// 6. BOLLARDS & GUARDRAILS — Image → Country
 // ══════════════════════════════════════════
-const infrastructureQuestions: QuizQuestion[] = [
-  { id: 'infra-chevron-eu', prompt: 'This chevron overview covers which region?', image: '/images/external/eu_chevrons.png', answer: 'Europe', distractors: ['Asia', 'Americas', 'Africa'], category: 'infrastructure' },
-  { id: 'infra-chevron-world', prompt: 'This chevron overview covers which scope?', image: '/images/external/Chevrons.png', answer: 'World', distractors: ['Europe only', 'Americas only', 'Asia only'], category: 'infrastructure' },
-  { id: 'infra-guardrail', prompt: 'This guardrail overview covers which region?', image: '/images/external/europeguardrail.png', answer: 'Europe', distractors: ['Asia', 'Americas', 'Africa'], category: 'infrastructure' },
-  { id: 'infra-bollard', prompt: 'This bollard overview shows bollard types from which scope?', image: '/images/external/bollard.png', answer: 'World', distractors: ['Europe only', 'Americas only', 'Asia only'], category: 'infrastructure' },
+type ImgQ = [id: string, image: string, answer: string, distractors: string[], clue?: string]
+
+function imageQuestions(category: string, prompt: string, items: ImgQ[]): QuizQuestion[] {
+  return items.map(([id, image, answer, distractors, clue]) => ({ id, prompt, image, answer, distractors, category, clue }))
+}
+
+const bollardQuestions: QuizQuestion[] = imageQuestions('bollard', 'Which country has this bollard?', [
+  ['bol-fr', '/images/bollard/bollard-fr.png', 'France', ['Belgium', 'Italy', 'Spain'], 'Red or grey band — also found in Senegal.'],
+  ['bol-scot', '/images/bollard/bollard-scotland.png', 'United Kingdom', ['Ireland', 'France', 'Netherlands'], 'Scotland: rounded top.'],
+  ['bol-cz', '/images/bollard/bollard-cz.png', 'Czechia', ['Poland', 'Hungary', 'Austria'], 'Double reflectors — Czechia & Slovakia.'],
+  ['bol-be', '/images/bollard/bollard-be.png', 'Belgium', ['Netherlands', 'France', 'Luxembourg'], 'White wedge, yellow reflector.'],
+  ['bol-dk', '/images/bollard/bollard-dk.png', 'Denmark', ['Sweden', 'Norway', 'Germany'], 'Yellow reflector with stripe.'],
+  ['bol-cy', '/images/bollard/bollard-cy.png', 'Cyprus', ['Greece', 'Malta', 'Turkey'], 'White wedge, red reflector.'],
+  ['bol-ch', '/images/bollard/bollard-li.png', 'Switzerland', ['Austria', 'Germany', 'Italy'], 'Rounded black-and-white cylinder (also Liechtenstein).'],
+  ['bol-es', '/images/bollard/bollard-es.png', 'Spain', ['Portugal', 'France', 'Italy'], 'Orange and white.'],
+  ['bol-cl', '/images/external/bollard.png', 'Chile', ['Argentina', 'Peru', 'Uruguay'], 'White front reflector, yellow back reflector.'],
+  ['bol-gr', '/images/bollard/slavic-style/bollard-gr.png', 'Greece', ['Bulgaria', 'Albania', 'Turkey'], 'Wedge with red rectangular reflector.'],
+  ['bol-ad', '/images/bollard/bollard-ad.png', 'Andorra', ['Portugal', 'Italy', 'France'], 'Orange front reflector — also Spain & Canary Islands.'],
+  ['bol-bd', '/images/bollard/bollard-bd.png', 'Bangladesh', ['India', 'Sri Lanka', 'Thailand'], 'Red and white — also Cambodia.'],
+  ['bol-th', '/images/bollard/bollard-th.png', 'Thailand', ['Vietnam', 'Philippines', 'Malaysia'], 'Black and white — also Laos & Indonesia.'],
+  ['bol-lk', '/images/bollard/bollard-lk.png', 'Sri Lanka', ['India', 'Bangladesh', 'Thailand']],
+  ['bol-mx', '/images/bollard/bollard-mx.png', 'Mexico', ['Guatemala', 'Colombia', 'USA'], 'Concrete, often with yellow.'],
+  ['bol-pe', '/images/bollard/bollard-pe.png', 'Peru', ['Bolivia', 'Chile', 'Ecuador'], 'Concrete.'],
+  ['bol-mn', '/images/bollard/bollard-mn.png', 'Mongolia', ['Kyrgyzstan', 'Russia', 'Kazakhstan'], 'Bowling-pin shape.'],
+  ['bol-is', '/images/bollard/bollard-is.png', 'Iceland', ['Norway', 'Faroe Islands', 'Finland']],
+  ['guard-no', '/images/guardrail/guardrail-no.png', 'Norway', ['Sweden', 'Finland', 'Iceland'], 'Guardrail with wooden posts.'],
+])
+
+// ══════════════════════════════════════════
+// 7. ROADSIDE — km markers, road lines, poles, pavement, signs
+// ══════════════════════════════════════════
+const roadsideQuestions: QuizQuestion[] = [
+  ...imageQuestions('roadside', 'Which country has this kilometer marker?', [
+    ['km-fr', '/images/sign/kilometer-marker/kilo-fr.png', 'France', ['Belgium', 'Spain', 'Italy'], 'Yellow top.'],
+    ['km-pt', '/images/sign/kilometer-marker/kilo-pt.png', 'Portugal', ['Spain', 'Italy', 'France'], 'Black and white.'],
+    ['km-ro', '/images/sign/kilometer-marker/kilo-ro.png', 'Romania', ['Bulgaria', 'Hungary', 'Serbia']],
+    ['km-sn', '/images/sign/kilometer-marker/kilo-sn.png', 'Senegal', ['Ghana', 'Nigeria', 'Tunisia']],
+    ['km-tn', '/images/sign/kilometer-marker/kilo-tn.png', 'Tunisia', ['Senegal', 'Jordan', 'Turkey']],
+    ['km-kh', '/images/sign/kilometer-marker/kilo-kh.png', 'Cambodia', ['Thailand', 'Laos', 'Vietnam']],
+    ['km-ph', '/images/sign/kilometer-marker/kilo-ph.png', 'Philippines', ['Indonesia', 'Malaysia', 'Thailand']],
+    ['km-id', '/images/sign/kilometer-marker/kilo-id.png', 'Indonesia', ['Malaysia', 'Philippines', 'Thailand']],
+    ['km-pe', '/images/sign/kilometer-marker/kilo-pe.png', 'Peru', ['Bolivia', 'Chile', 'Ecuador']],
+    ['km-co', '/images/sign/kilometer-marker/kilo-co.png', 'Colombia', ['Ecuador', 'Peru', 'Mexico']],
+    ['km-uy', '/images/sign/kilometer-marker/kilo-uy.png', 'Uruguay', ['Argentina', 'Brazil', 'Chile'], 'Green.'],
+    ['km-bo', '/images/sign/kilometer-marker/kilo-bo.png', 'Bolivia', ['Peru', 'Chile', 'Argentina']],
+    ['km-ar', '/images/sign/kilometer-marker/kilo-ar.png', 'Argentina', ['Uruguay', 'Chile', 'Brazil']],
+    ['km-pr', '/images/sign/kilometer-marker/kilo-pr.png', 'Puerto Rico', ['USA', 'Mexico', 'Dominican Republic']],
+  ]),
+  ...imageQuestions('roadside', 'Which country has these road markings?', [
+    ['line-uy', '/images/road-markings/line-uy.png', 'Uruguay', ['Argentina', 'Brazil', 'Chile'], 'Triple center line.'],
+    ['line-ph', '/images/road-markings/line-ph.png', 'Philippines', ['Indonesia', 'Malaysia', 'Thailand'], 'Triple center line.'],
+    ['line-ie', '/images/road-markings/line-ie.png', 'Ireland', ['United Kingdom', 'France', 'Netherlands'], 'Dashed outer yellow.'],
+    ['line-cl', '/images/road-markings/line-white-cl.png', 'Chile', ['Argentina', 'Peru', 'Mexico'], 'All white — unusual for the Americas.'],
+  ]),
+  ...imageQuestions('roadside', 'Which country has this utility pole marking?', [
+    ['pole-co', '/images/pole/pole-plate/stripe-co.png', 'Colombia', ['Peru', 'Ecuador', 'Mexico']],
+    ['pole-pe', '/images/pole/pole-plate/stripe-pe.png', 'Peru', ['Colombia', 'Bolivia', 'Chile']],
+    ['pole-uk', '/images/pole/pole-plate/warning-uk.png', 'United Kingdom', ['Ireland', 'Australia', 'New Zealand'], 'The person getting zapped.'],
+    ['pole-ie', '/images/pole/pole-plate/warning-ie.png', 'Ireland', ['United Kingdom', 'France', 'Netherlands']],
+    ['pole-fr', '/images/pole/pole-plate/sticker-fr.png', 'France', ['Belgium', 'Spain', 'Italy']],
+    ['pole-qld', '/images/pole/pole-plate/sticker-qld.png', 'Australia', ['New Zealand', 'South Africa', 'United Kingdom'], 'Queensland.'],
+  ]),
+  ...imageQuestions('roadside', 'Which country has this pavement?', [
+    ['pave-ec', '/images/pavement/turtle-ec.png', 'Ecuador', ['Colombia', 'Peru', 'Bolivia'], 'Turtle-shell stones.'],
+    ['pave-bo', '/images/pavement/stone-bo.png', 'Bolivia', ['Peru', 'Ecuador', 'Chile'], 'Lines between the stones.'],
+    ['pave-nl', '/images/pavement/brick-nl.png', 'Netherlands', ['Belgium', 'Germany', 'Denmark']],
+    ['pave-tr', '/images/pavement/brick-tr.png', 'Turkey', ['Greece', 'Bulgaria', 'Romania']],
+  ]),
+  ...imageQuestions('roadside', 'Which country has this sign?', [
+    ['sign-hunt-pt', '/images/sign/hunting-pt.png', 'Portugal', ['Spain', 'France', 'Italy'], 'Hunting area sign.'],
+    ['sign-hunt-es', '/images/sign/hunting-es.png', 'Spain', ['Portugal', 'France', 'Italy'], 'Hunting area sign.'],
+    ['sign-pass-no', '/images/sign/passing-no.png', 'Norway', ['Sweden', 'Finland', 'Iceland'], 'Passing place sign.'],
+    ['sign-pass-se', '/images/sign/passing-se.png', 'Sweden', ['Norway', 'Finland', 'Denmark'], 'Passing place sign.'],
+  ]),
 ]
+
+// ══════════════════════════════════════════
+// 8. JAPAN POLES — Image → Region
+// ══════════════════════════════════════════
+const japanRegions = ['Hokkaido', 'Tohoku', 'Kanto', 'Chubu', 'Hokuriku', 'Kansai', 'Chugoku', 'Shikoku', 'Kyushu', 'Okinawa']
+const japanPoleQuestions: QuizQuestion[] = ([
+  ['jp-bar-chugoku', 'bar-chugoku', 'Chugoku', 'Full triangle at the mount point.'],
+  ['jp-bar-shikoku', 'bar-shikoku', 'Shikoku', 'Half triangle at the mount point.'],
+  ['jp-bar-tohoku', 'bar-tohoku', 'Tohoku', 'Bar at the top of the square.'],
+  ['jp-bar-kansai', 'bar-kansai', 'Kansai', 'Bar at the bottom of the square.'],
+  ['jp-square-hokkaido', 'square-hokkaido', 'Hokkaido', 'Square plate without a bar.'],
+  ['jp-bar-okinawa', 'bar-okinawa', 'Okinawa'],
+  ['jp-bar-kyushu', 'bar-kyushu', 'Kyushu'],
+  ['jp-wooden-plate', 'wooden-plate', 'Kanto', 'Wooden plate.'],
+  ['jp-two-bars', 'two-bars', 'Hokkaido'],
+  ['jp-zigzag-90', 'zigzag-90', 'Shikoku', '90° zigzag.'],
+  ['jp-zigzag-120', 'zigzag-120', 'Kansai', '120° zigzag.'],
+  ['jp-topbar-long', 'topbar-long', 'Kanto', 'Long top bar.'],
+  ['jp-topbar-short', 'topbar-short', 'Chubu', 'Short top bar.'],
+  ['jp-pyramid-thick', 'pyramid-thick', 'Chubu', 'Four thick bars.'],
+  ['jp-pyramid-tent', 'pyramid-tent', 'Hokuriku', 'Two-sided tent.'],
+  ['jp-pyramid-thin', 'pyramid-thin', 'Chugoku', 'Four thin bars.'],
+  ['jp-insulator-hori', 'insulator-long-hori', 'Chugoku', 'Long horizontal insulator.'],
+  ['jp-insulator-lamp', 'insulator-lamp', 'Hokuriku', 'Lamp-shaped insulator.'],
+] as [string, string, string, string?][]).map(([id, file, answer, clue]) => ({
+  id,
+  prompt: 'Which Japanese region has this utility pole?',
+  image: `/images/pole/japan/${file}.png`,
+  answer,
+  distractors: pickDistractors(answer, japanRegions),
+  category: 'japan-pole',
+  clue,
+}))
+
+// ══════════════════════════════════════════
+// 9. COMPANIES — Brand → Country
+// ══════════════════════════════════════════
+const companyQuestions: QuizQuestion[] = ([
+  ['Pemex', 'fuel station', 'Mexico', ['Colombia', 'Guatemala', 'Peru']],
+  ['YPF', 'fuel station', 'Argentina', ['Uruguay', 'Chile', 'Paraguay']],
+  ['Ancap', 'fuel station', 'Uruguay', ['Argentina', 'Paraguay', 'Brazil']],
+  ['Copec', 'fuel station', 'Chile', ['Argentina', 'Peru', 'Bolivia']],
+  ['Petronas', 'fuel station', 'Malaysia', ['Indonesia', 'Thailand', 'Philippines']],
+  ['Pertamina', 'fuel station', 'Indonesia', ['Malaysia', 'Philippines', 'Thailand']],
+  ['Petrolimex', 'fuel station', 'Vietnam', ['Cambodia', 'Laos', 'Thailand']],
+  ['Petrobras / Ipiranga', 'fuel station', 'Brazil', ['Argentina', 'Uruguay', 'Colombia']],
+  ['Safaricom / M-Pesa', 'telecom', 'Kenya', ['Uganda', 'Nigeria', 'Ghana']],
+  ['Grameenphone', 'telecom', 'Bangladesh', ['India', 'Sri Lanka', 'Thailand']],
+  ['Telkomsel', 'telecom', 'Indonesia', ['Malaysia', 'Philippines', 'Vietnam']],
+  ['Globe / Smart', 'telecom', 'Philippines', ['Indonesia', 'Malaysia', 'Thailand']],
+  ['Dialog / Mobitel', 'telecom', 'Sri Lanka', ['India', 'Bangladesh', 'Malaysia']],
+  ['Antel', 'telecom', 'Uruguay', ['Argentina', 'Paraguay', 'Chile']],
+  ['Telcel', 'telecom', 'Mexico', ['Guatemala', 'Colombia', 'Peru']],
+  ['Biedronka / Żabka', 'shop', 'Poland', ['Czechia', 'Slovakia', 'Lithuania']],
+  ['Mercadona', 'supermarket', 'Spain', ['Portugal', 'Italy', 'France']],
+  ['BIM / A101 / ŞOK', 'shop', 'Turkey', ['Greece', 'Bulgaria', 'Romania']],
+  ['K-Market / S-Market', 'supermarket', 'Finland', ['Sweden', 'Estonia', 'Norway']],
+  ['ICA', 'supermarket', 'Sweden', ['Norway', 'Finland', 'Denmark']],
+  ['Kiwi / Joker', 'supermarket', 'Norway', ['Sweden', 'Denmark', 'Finland']],
+  ['Indomaret', 'shop', 'Indonesia', ['Malaysia', 'Philippines', 'Thailand']],
+] as [string, string, string, string[]][]).map(([brand, kind, answer, distractors]) => ({
+  id: `co-${brand.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+  prompt: `You see a "${brand}" ${kind}. Which country are you most likely in?`,
+  answer,
+  distractors,
+  category: 'company',
+}))
 
 // ══════════════════════════════════════════
 // EXPORT ALL
@@ -225,7 +391,10 @@ const allQuestions: QuizQuestion[] = [
   ...telephoneQuestions,
   ...licensePlateQuestions,
   ...signQuestions,
-  ...infrastructureQuestions,
+  ...bollardQuestions,
+  ...roadsideQuestions,
+  ...japanPoleQuestions,
+  ...companyQuestions,
 ]
 
 export const quizCategories: QuizCategory[] = [
@@ -234,7 +403,10 @@ export const quizCategories: QuizCategory[] = [
   { slug: 'telephone', title: 'Telephone', emoji: '📞', description: 'Match phone codes to countries and cities.', questionCount: telephoneQuestions.length },
   { slug: 'license-plate', title: 'License Plate', emoji: '🪪', description: 'Identify the country from license plate designs.', questionCount: licensePlateQuestions.length },
   { slug: 'sign', title: 'Road Signs', emoji: '🚸', description: 'Match pedestrian, yield, and stop signs to countries.', questionCount: signQuestions.length },
-  { slug: 'infrastructure', title: 'Infrastructure', emoji: '🛣️', description: 'Chevrons, bollards, and guardrails.', questionCount: infrastructureQuestions.length },
+  { slug: 'bollard', title: 'Bollards', emoji: '🔶', description: 'Identify the country from bollards and guardrails.', questionCount: bollardQuestions.length },
+  { slug: 'roadside', title: 'Roadside', emoji: '🛣️', description: 'Kilometer markers, road lines, pole markings, pavement and signs.', questionCount: roadsideQuestions.length },
+  { slug: 'japan-pole', title: 'Japan Poles', emoji: '🗾', description: 'Name the Japanese region from its utility poles.', questionCount: japanPoleQuestions.length },
+  { slug: 'company', title: 'Companies', emoji: '🏢', description: 'Fuel stations, telecoms and shops that give away the country.', questionCount: companyQuestions.length },
   { slug: 'all', title: 'All Categories', emoji: '🌍', description: 'Random mix of all quiz categories.', questionCount: allQuestions.length },
 ]
 
