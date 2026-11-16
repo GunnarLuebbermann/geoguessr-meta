@@ -8,7 +8,7 @@ export const languageCategory: Category = {
   content: {
     title: 'Language',
     blocks: [
-      { type: 'note', title: 'Language Groups', html: '<strong>Dutch</strong>: Netherland, Belgium<br/><strong>French</strong>: France, Belgium, Switzerland<br/><strong>German</strong>: Germany, Belgium, Luxembourg, Austria, Switzerland<br/><strong>Slavic</strong>: Poland, Czechia, Slovakia, Yugoslavia (Slovenia, Croatia, Bosnia, Montenegro, Serbia, North Macedonia)<br/><strong>Cyrillic script</strong>: Russia, Ukraine, Bulgaria, Bosnia, Montenegro, Serbia, North Macedonia, Central Asia' },
+      { type: 'note', title: 'Language Groups', html: '<strong>Dutch</strong>: Netherlands, Belgium<br/><strong>French</strong>: France, Belgium, Switzerland<br/><strong>German</strong>: Germany, Belgium, Luxembourg, Austria, Switzerland<br/><strong>Slavic (Latin script)</strong>: Poland, Czechia, Slovakia, Slovenia, Croatia, Bosnia, Montenegro, Serbia<br/><strong>Cyrillic script</strong>: Russia, Ukraine, Belarus, Bulgaria, Serbia, North Macedonia, Montenegro (partly), Bosnia (partly), Kazakhstan, Kyrgyzstan, Mongolia' },
       { type: 'heading', level: 2, text: 'Street Words' },
       {
         type: 'table',
@@ -37,9 +37,9 @@ export const languageCategory: Category = {
       {
         type: 'list',
         items: [
-          '<strong>-ije</strong>: Croatian',
+          '<strong>-ije</strong> (rijeka, mlijeko): Croatian, Bosnian, Montenegrin — Serbian uses <strong>-e</strong> (reka)',
           '<strong>Einbahn</strong>, Oneway: Austria',
-          '<strong>EinbahnStraße</strong>, Oneway: Germany',
+          '<strong>Einbahnstraße</strong>, Oneway: Germany',
           '<strong>Araf</strong>, Slow: Wales',
           '<strong>AWAS</strong>, Caution: Malaysia, Indonesia',
           '<strong>Paunawa</strong>, Caution: The Philippines',
@@ -50,7 +50,7 @@ export const languageCategory: Category = {
       {
         type: 'list',
         items: [
-          '<strong>č, š, ž</strong>: Czech, Slovakia, Slovenia, Croatian, Baltics',
+          '<strong>č, š, ž</strong>: Czech, Slovak, Slovenian, Croatian, Serbian/Bosnian (Latin), Latvian, Lithuanian',
           'In Nordic countries:',
           '&nbsp;&nbsp;<strong>Å</strong>: All',
           '&nbsp;&nbsp;<strong>ø, æ</strong>: Norway, Denmark, Faroe',
@@ -65,8 +65,8 @@ export const languageCategory: Category = {
         rows: [
           ['Czech', '<strong>ů ě ř</strong> ý', 'ň ď ť Ď Ť č š ž', 'á é í ó ú'],
           ['Slovakia', '<strong>ô ŕ ĺ ľ</strong> ý', 'ň ď ť Ď Ť č š ž', '<strong>ä</strong> á é í ó ú'],
-          ['Croatia', 'Ð đ', 'č š ž', '<strong>ć</strong>'],
-          ['Slovenia', 'Ð đ', 'č š ž', '<strong>ć</strong>'],
+          ['Croatia', '<strong>Đ đ</strong>', 'č š ž', '<strong>ć</strong>'],
+          ['Slovenia', '', 'č š ž', '(no ć, no đ — tells it apart from Croatian)'],
           ['Hungary', '<strong>ő ű</strong> ö ü', '', 'á é í ó ú'],
           ['Romania', '<strong>ă ș ț</strong> â î', '', ''],
           ['Albania', 'ç', '', '<strong>ë</strong>'],
@@ -108,12 +108,20 @@ export const languageCategory: Category = {
       { type: 'heading', level: 3, text: 'Irish' },
       { type: 'list', items: ['Use accents frequently: acute (´)'] },
       { type: 'heading', level: 2, text: 'Cyrillic' },
-      { type: 'note', html: 'The only useful part is to distinguish between Ukraine and Russia.' },
+      { type: 'note', html: 'Letters that a language <em>lacks</em> are just as useful as the ones it has: Ukrainian never uses <strong>ы э ъ ё</strong>, Belarusian never uses <strong>и</strong>.' },
+      { type: 'table', headers: ['Country', 'Look for', 'Never uses'], rows: [
+        ['Russia', '<strong>ы э ъ ё</strong>', 'і ї є ў'],
+        ['Ukraine', '<strong>і ї є ґ</strong>', 'ы э ъ ё'],
+        ['Belarus', '<strong>ў і</strong>, ы э', 'и ї щ'],
+        ['Bulgaria', '<strong>ъ</strong> as a frequent vowel, щ', 'ы э ё'],
+        ['Serbia', '<strong>ђ ћ</strong> џ ј љ њ', 'ѓ ќ ѕ'],
+        ['North Macedonia', '<strong>ѓ ќ ѕ</strong> џ ј љ њ', 'ђ ћ'],
+      ]},
       { type: 'heading', level: 3, text: 'Balkan' },
       { type: 'list', items: [
-        '<strong>Serbia</strong>: њ љ џ ј ђ',
-        '<strong>Macedonia</strong>: њ љ џ ј ѕ ѓ ќ',
-        '<strong>Bulgaria</strong>: ѕ',
+        '<strong>Serbia</strong>: њ љ џ ј ђ ћ',
+        '<strong>North Macedonia</strong>: њ љ џ ј ѕ ѓ ќ',
+        '<strong>Bulgaria</strong>: ъ (very frequent), щ',
         '<strong>Ukraine</strong>: ґ є і ї',
       ]},
       { type: 'heading', level: 3, text: 'Russia' },
@@ -131,7 +139,7 @@ export const languageCategory: Category = {
       ]},
       { type: 'heading', level: 3, text: 'Central Asia' },
       { type: 'list', items: [
-        '<strong>Kazakhstan</strong>: ә ғ қ ң ө ұ ү һ',
+        '<strong>Kazakhstan</strong>: ә ғ қ ң ө ұ ү һ і',
         '<strong>Kyrgyzstan</strong>: ң ө ү',
         '<strong>Mongolia</strong>: ө ү',
       ]},

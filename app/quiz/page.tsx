@@ -8,7 +8,7 @@ export default function QuizPage() {
         <Link href="/" className="back-link">← Back to home</Link>
         <h1>📝 Quiz</h1>
         <p className="description">
-          Test your GeoGuessr knowledge. Choose a category and answer 15 random questions.
+          Test your GeoGuessr knowledge. Choose a category and answer up to 15 random questions.
         </p>
       </section>
 

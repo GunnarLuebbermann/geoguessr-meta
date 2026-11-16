@@ -1,5 +1,37 @@
 import Link from 'next/link'
 import { categories } from '../lib/content'
+import { ContentBlock } from '../lib/types'
+import TrainingSearch, { SearchEntry } from '../../components/TrainingSearch'
+
+function blocksToText(blocks: ContentBlock[] = []): string {
+  const parts: string[] = []
+  for (const b of blocks) {
+    switch (b.type) {
+      case 'heading': parts.push(b.text); break
+      case 'text': parts.push(b.html); break
+      case 'list': parts.push(...b.items); break
+      case 'note':
+      case 'warning': parts.push(b.title ?? '', b.html); break
+      case 'image': parts.push(b.caption ?? ''); break
+      case 'imageGrid': b.columns.forEach((c) => parts.push(c.title ?? '', c.caption ?? '')); break
+      case 'table': parts.push(...b.headers, ...b.rows.flat()); break
+    }
+  }
+  return parts.join(' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ')
+}
+
+const entries: SearchEntry[] = categories.map((c) => ({
+  slug: c.slug,
+  title: c.title,
+  emoji: c.emoji,
+  description: c.description,
+  text: blocksToText(c.content?.blocks),
+  subcategories: (c.subcategories ?? []).map((s) => ({
+    slug: s.slug,
+    title: s.title,
+    text: blocksToText(s.content.blocks),
+  })),
+}))
 
 export default function TrainingPage() {
   return (
@@ -14,14 +46,7 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      <section className="training-grid">
-        {categories.map((cat) => (
-          <Link key={cat.slug} href={`/training/${cat.slug}`} className="training-card card-link">
-            <h2>{cat.emoji} {cat.title}</h2>
-            <p>{cat.description}</p>
-          </Link>
-        ))}
-      </section>
+      <TrainingSearch entries={entries} />
     </main>
   )
 }
